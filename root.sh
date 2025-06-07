@@ -85,7 +85,8 @@ if [ ! -e $ROOTFS_DIR/.installed ]; then
   echo "#"
   echo "#######################################################################################"
 
-  read -p "是否安装Ubuntu? (YES/no): " install_ubuntu
+  #read -p "是否安装Ubuntu? (YES/no): " install_ubuntu
+  install_ubuntu="YES"
 fi
 
 # 根据用户输入决定是否安装Ubuntu
@@ -245,7 +246,8 @@ echo -e "${CYAN}如需删除所有配置和文件，请执行:${RESET_COLOR}"
 echo -e "${WHITE}    ./root.sh del${RESET_COLOR}\n"
 
 echo "是否立即启动proot环境? (y/n): "
-read start_now
+#read start_now
+start_now="y"
 
 if [[ "$start_now" == "y" || "$start_now" == "Y" ]]; then
   echo "正在启动proot环境..."
