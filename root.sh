@@ -197,7 +197,7 @@ echo -e "\033[1;32m软件源已更新为Ubuntu 22.04 (Jammy)源\033[0m"
 echo -e "\033[1;33m正在更新系统并安装必要软件包，请稍候...\033[0m"
 
 # 更新系统并安装软件包
-apt-get update && apt-get install -y curl wget git vim nano htop tmux python3 python3-pip nodejs npm net-tools zip unzip sudo locales tree ca-certificates gnupg lsb-release iproute2 cron
+apt-get update && apt-get install -y curl wget git vim nano htop tmux expect python3 python3-pip nodejs npm net-tools zip unzip sudo locales tree ca-certificates gnupg lsb-release iproute2 cron
 
 echo -e "\033[1;32m系统更新和软件安装完成!\033[0m"
 
