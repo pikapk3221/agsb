@@ -201,7 +201,7 @@ echo -e "\033[1;33m正在更新系统并安装必要软件包，请稍候...\033
 
 apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget git vim sudo
 
-#ln -s /usr/bin/python3 /usr/bin/python
+ln -s /usr/bin/python3 /usr/bin/python
 
 echo -e "\033[1;32m系统更新和软件安装完成!\033[0m"
 
