@@ -231,7 +231,7 @@ echo "正在启动proot环境..."
 cd $ROOTFS_DIR
 $ROOTFS_DIR/usr/local/bin/proot \\
   --rootfs="$ROOTFS_DIR" \\
-  -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf --kill-on-exit \\
+  -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf -b /mount/src --kill-on-exit \\
   /bin/bash -c "cd /root && /bin/bash /root/init.sh && /bin/bash"
 EOF
 
