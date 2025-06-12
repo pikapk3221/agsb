@@ -201,6 +201,8 @@ apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget gi
 
 ln -s /usr/bin/python3 /usr/bin/python
 
+export HOME="/home/$HOST_USER"
+
 echo -e "\033[1;32m系统更新和软件安装完成!\033[0m"
 
 # 显示欢迎信息
