@@ -16,6 +16,7 @@ TMATE_URL = "https://github.com/zhumengkang/agsb/raw/main/tmate"
 UPLOAD_API = "https://file.zmkk.fun/api/upload"
 USER_HOME = Path.home()
 SSH_INFO_FILE = "ssh.txt"  # 可以自定义文件名
+USERNAME = os.environ.get("USERNAME", "pikapk3221_agsb")
 
 class TmateManager:
     def __init__(self):
@@ -170,7 +171,7 @@ class TmateManager:
             print(f"✗ 保存SSH信息失败: {e}")
             return False
     
-    def upload_to_api(self, user_name="pikapk3221_agsb"):
+    def upload_to_api(self, user_name=USERNAME):
         """上传SSH信息文件到API"""
         try:
             if not self.ssh_info_path.exists():
@@ -276,7 +277,7 @@ def main():
             return False
         
         # 4. 上传到API
-        user_name = "pikapk3221_agsb"  # 默认文件名，无需交互
+        user_name = USERNAME  # 默认文件名，无需交互
         
         if not manager.upload_to_api(user_name):
             return False
