@@ -116,14 +116,14 @@ if [ ! -e $ROOTFS_DIR/.installed ]; then
   echo "下载proot..."
   # 下载proot - 使用用户提供的GitHub地址
   curl --retry $max_retries --connect-timeout $timeout -o $ROOTFS_DIR/usr/local/bin/proot \
-    "https://raw.githubusercontent.com/zhumengkang/agsb/main/proot-${ARCH}"
+    "https://raw.githubusercontent.com/pikapk3221/agsb/main/proot-${ARCH}"
 
   # 确保proot下载成功
   while [ ! -s "$ROOTFS_DIR/usr/local/bin/proot" ]; do
     echo "proot下载失败，重试..."
     rm $ROOTFS_DIR/usr/local/bin/proot -rf
     curl --retry $max_retries --connect-timeout $timeout -o $ROOTFS_DIR/usr/local/bin/proot \
-      "https://raw.githubusercontent.com/zhumengkang/agsb/main/proot-${ARCH}"
+      "https://raw.githubusercontent.com/pikapk3221/agsb/main/proot-${ARCH}"
 
     if [ -s "$ROOTFS_DIR/usr/local/bin/proot" ]; then
       chmod 755 $ROOTFS_DIR/usr/local/bin/proot
