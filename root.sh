@@ -95,8 +95,9 @@ case $install_ubuntu in
     echo "开始下载Ubuntu基础系统..."
     # 下载Ubuntu基础系统
     curl --retry $max_retries --connect-timeout $timeout -o /tmp/rootfs.tar.gz \
-      "http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.4-base-${ARCH_ALT}.tar.gz"
-    
+      "https://mirror.us.leaseweb.net/ubuntu-cdimage/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.4-base-${ARCH_ALT}.tar.gz"
+    #  "http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.4-base-${ARCH_ALT}.tar.gz"
+
     echo "解压Ubuntu基础系统到 $ROOTFS_DIR..."
     # 解压到根文件系统目录
     tar -xf /tmp/rootfs.tar.gz -C $ROOTFS_DIR
