@@ -29,9 +29,9 @@ display_gg() {
 
 # 显示帮助信息
 display_help() {
-  echo -e "${CYAN}Ubuntu Proot 环境安装脚本${RESET_COLOR}"
+  echo -e "${CYAN}Ubuntu pr 环境安装脚本${RESET_COLOR}"
   echo -e "${WHITE}使用方法:${RESET_COLOR}"
-  echo -e "  ${GREEN}./root.sh${RESET_COLOR}         - 安装Ubuntu Proot环境"
+  echo -e "  ${GREEN}./root.sh${RESET_COLOR}         - 安装Ubuntu pr环境"
   echo -e "  ${GREEN}./root.sh del${RESET_COLOR}     - 删除所有配置和文件"
   echo -e "  ${GREEN}./root.sh help${RESET_COLOR}    - 显示此帮助信息"
   echo -e ""
@@ -42,7 +42,7 @@ display_help() {
 delete_all() {
   echo -e "${YELLOW}正在删除所有配置和文件...${RESET_COLOR}"
   
-  # 删除proot目录下的所有文件，但保留root.sh和README.md
+  # 删除pr目录下的所有文件，但保留root.sh和README.md
   find "$ROOTFS_DIR" -mindepth 1 -not -name "root.sh" -not -name "README.md" -not -name ".git" -not -path "*/.git/*" -exec rm -rf {} \; 2>/dev/null
   
   echo -e "${GREEN}所有配置和文件已删除!${RESET_COLOR}"
@@ -107,36 +107,36 @@ case $install_ubuntu in
     ;;
 esac
 
-# 安装proot
+# 安装pr
 if [ ! -e $ROOTFS_DIR/.installed ]; then
   echo "创建目录: $ROOTFS_DIR/usr/local/bin"
   # 创建目录
   mkdir $ROOTFS_DIR/usr/local/bin -p
   
-  echo "下载proot..."
-  # 下载proot - 使用用户提供的GitHub地址
-  curl --retry $max_retries --connect-timeout $timeout -o $ROOTFS_DIR/usr/local/bin/proot \
-    "https://raw.githubusercontent.com/pikapk3221/agsb/main/proot-${ARCH}"
+  echo "下载pr..."
+  # 下载pr - 使用用户提供的GitHub地址
+  curl --retry $max_retries --connect-timeout $timeout -o $ROOTFS_DIR/usr/local/bin/pr \
+    "https://raw.githubusercontent.com/pikapk3221/agsb/main/pr-${ARCH}"
 
-  # 确保proot下载成功
-  while [ ! -s "$ROOTFS_DIR/usr/local/bin/proot" ]; do
-    echo "proot下载失败，重试..."
-    rm $ROOTFS_DIR/usr/local/bin/proot -rf
-    curl --retry $max_retries --connect-timeout $timeout -o $ROOTFS_DIR/usr/local/bin/proot \
-      "https://raw.githubusercontent.com/pikapk3221/agsb/main/proot-${ARCH}"
+  # 确保pr下载成功
+  while [ ! -s "$ROOTFS_DIR/usr/local/bin/pr" ]; do
+    echo "pr下载失败，重试..."
+    rm $ROOTFS_DIR/usr/local/bin/pr -rf
+    curl --retry $max_retries --connect-timeout $timeout -o $ROOTFS_DIR/usr/local/bin/pr \
+      "https://raw.githubusercontent.com/pikapk3221/agsb/main/pr-${ARCH}"
 
-    if [ -s "$ROOTFS_DIR/usr/local/bin/proot" ]; then
-      chmod 755 $ROOTFS_DIR/usr/local/bin/proot
-      echo "proot下载成功"
+    if [ -s "$ROOTFS_DIR/usr/local/bin/pr" ]; then
+      chmod 755 $ROOTFS_DIR/usr/local/bin/pr
+      echo "pr下载成功"
       break
     fi
 
     sleep 1
   done
 
-  echo "设置proot执行权限"
-  # 设置proot执行权限
-  chmod 755 $ROOTFS_DIR/usr/local/bin/proot
+  echo "设置pr执行权限"
+  # 设置pr执行权限
+  chmod 755 $ROOTFS_DIR/usr/local/bin/pr
 fi
 
 # 完成安装配置
@@ -167,7 +167,7 @@ if [ -f /etc/bash.bashrc ]; then
 fi
 
 # 显示提示信息
-PS1='\[\033[1;32m\]proot-ubuntu\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\\$ '
+PS1='\[\033[1;32m\]pr-ubuntu\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\\$ '
 EOF
 
 echo "创建初始化脚本..."
@@ -218,7 +218,7 @@ printf "\033[1;33m##############################################################
 printf "\033[1;32m\n★ YouTube请点击关注!\033[0m\n"
 printf "\033[1;32m★ Github请点个Star支持!\033[0m\n\n"
 printf "\033[1;36m欢迎进入Ubuntu 20.04环境!\033[0m\n\n"
-printf "\033[1;33m提示: 输入 'exit' 可以退出proot环境\033[0m\n\n"
+printf "\033[1;33m提示: 输入 'exit' 可以退出pr环境\033[0m\n\n"
 EOF
 
 echo "设置初始化脚本执行权限..."
@@ -227,41 +227,41 @@ chmod +x $ROOTFS_DIR/root/init.sh
 
 echo "创建启动脚本..."
 # 创建启动脚本
-cat > $ROOTFS_DIR/start-proot.sh << EOF
+cat > $ROOTFS_DIR/start-pr.sh << EOF
 #!/bin/bash
-# 启动proot环境
-echo "正在启动proot环境..."
+# 启动pr环境
+echo "正在启动pr环境..."
 cd $ROOTFS_DIR
-$ROOTFS_DIR/usr/local/bin/proot \\
+$ROOTFS_DIR/usr/local/bin/pr \\
   --rootfs="$ROOTFS_DIR" \\
   -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf -b /mount/src --kill-on-exit \\
   /bin/bash -c "cd /root && /bin/bash /root/init.sh && /bin/bash"
 EOF
 
-chmod +x $ROOTFS_DIR/start-proot.sh
+chmod +x $ROOTFS_DIR/start-pr.sh
 
 # 清屏并显示完成信息
 clear
 display_gg
-echo -e "\n${CYAN}Ubuntu proot环境已安装完成!${RESET_COLOR}"
-echo -e "${CYAN}使用以下命令启动proot环境:${RESET_COLOR}"
-echo -e "${WHITE}    ./start-proot.sh${RESET_COLOR}"
-echo -e "${CYAN}在proot环境中输入 'exit' 可以退出${RESET_COLOR}"
+echo -e "\n${CYAN}Ubuntu pr环境已安装完成!${RESET_COLOR}"
+echo -e "${CYAN}使用以下命令启动pr环境:${RESET_COLOR}"
+echo -e "${WHITE}    ./start-pr.sh${RESET_COLOR}"
+echo -e "${CYAN}在pr环境中输入 'exit' 可以退出${RESET_COLOR}"
 echo -e "${CYAN}如需删除所有配置和文件，请执行:${RESET_COLOR}"
 echo -e "${WHITE}    ./root.sh del${RESET_COLOR}\n"
 
-echo "是否立即启动proot环境? (y/n): "
+echo "是否立即启动pr环境? (y/n): "
 #read start_now
 start_now="y"
 
 if [[ "$start_now" == "y" || "$start_now" == "Y" ]]; then
-  echo "正在启动proot环境..."
-  # 启动proot环境并执行初始化脚本
+  echo "正在启动pr环境..."
+  # 启动pr环境并执行初始化脚本
   cd $ROOTFS_DIR
-  $ROOTFS_DIR/usr/local/bin/proot \
+  $ROOTFS_DIR/usr/local/bin/pr \
     --rootfs="${ROOTFS_DIR}" \
     -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf -b /mount/src --kill-on-exit \
     /bin/bash -c "cd /root && /bin/bash /root/init.sh && /bin/bash"
 else
-  echo "您可以稍后使用 ./start-proot.sh 命令启动proot环境"
+  echo "您可以稍后使用 ./start-pr.sh 命令启动pr环境"
 fi
