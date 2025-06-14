@@ -241,7 +241,7 @@ EOF
 chmod +x $ROOTFS_DIR/start-pr.sh
 
 # 清屏并显示完成信息
-clear
+#clear
 display_gg
 echo -e "\n${CYAN}Ubuntu pr环境已安装完成!${RESET_COLOR}"
 echo -e "${CYAN}使用以下命令启动pr环境:${RESET_COLOR}"
