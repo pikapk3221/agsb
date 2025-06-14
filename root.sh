@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置根文件系统目录为当前目录
-ROOTFS_DIR=$(pwd)
+ROOTFS_DIR="/tmp/data"
 # 添加路径
 export PATH=$PATH:~/.local/usr/bin
 # 设置最大重试次数和超时时间
